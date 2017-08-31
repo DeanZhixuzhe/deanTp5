@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+{include file="index/meta"}
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+</head>
+<body>
+<div id="area"></div>
+{volist name='list' id='area'}
+<p>&nbsp;&nbsp;{$area.tree}</p>
+{/volist}
+{include file="index/footer"}
+<script type="text/javascript">
+	// $('#area').one();
+	$(document).ready(function(){
+		laSelect(area,"亚洲","Area/liandong");
+	});
+	function laSelect(linkage,name,url){
+		$.ajax({
+			type:"get",
+			url:"{:url('Area/liandong')}",
+			data:{name:name},
+			success:function(data){
+				var html = '<select><option>--请选择--</option>';
+				for(var i in data){
+					html +='<option value="'+data[i].name+'">'+data[i].name+'</option>';
+				}
+				html += '</select>';
+				var result = $(linkage).html(html);
+				setRes(result,0);
+			},
+		});
+	}
+	function setRes(result,num){
+		var total = $(result).children('select').length;
+		// alert(total-num);
+		$(result).children('select').eq(num).change(function(){
+			$.ajax({
+				type:"post",
+				url:"{:url('Area/liandong')}",
+				data:{name:$(result).children('select').eq(num).val()},
+				success:function(data){
+					$(result).children('select').slice(num+1).remove();
+					if (data.length > 0) {
+						var html = '<select><option>--请选择--</option>';
+						for(var i in data){
+							html +='<option value="'+data[i].name+'">'+data[i].name+'</option>';
+						}
+						html += '</select>';
+						$(result).append(html);
+					}
+					setRes($(result),num+1);
+				}
+			});
+		});
+	}
+</script>
+</body>
+</html>

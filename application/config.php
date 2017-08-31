@@ -17,9 +17,9 @@ return [
     // 应用命名空间
     'app_namespace'          => 'app',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => true,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -49,7 +49,7 @@ return [
     // 应用类库后缀
     'class_suffix'           => false,
     // 控制器类后缀
-    'controller_suffix'      => false,
+    'controller_suffix'      => true,
 
     // +----------------------------------------------------------------------
     // | 模块设置
@@ -169,6 +169,8 @@ return [
         'type'  => 'File',
         // 日志保存目录
         'path'  => LOG_PATH,
+        // error和sql日志单独记录
+        'apart_level'   =>  ['error','sql'],
         // 日志记录级别
         'level' => [],
     ],
@@ -238,4 +240,28 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    // +----------------------------------------------------------------------
+    // | Captcha验证
+    // +----------------------------------------------------------------------
+    'captcha'               =>  [
+        // 验证码字符集合
+        // 'codeSet'   =>  '123456',
+        //验证码大小（PX）
+        'fontSize'  =>  20,
+        // 是否画混淆曲线
+        'useCurve'  =>  false,
+        // 'imageH'    =>  30,
+        // 'imageW'    =>  100,
+        'length'    =>  4,
+        // 验证成功后是否重置
+        // 'reset'     =>  true,
+    ],
+
+
+    // +----------------------------------------------------------------------
+    // | 自定义
+    // +----------------------------------------------------------------------
+    'web_static'    =>  '/deantp5/public/static',
+    'web_root'      =>  '/deantp5/public/index.php/',
 ];
